@@ -26,24 +26,24 @@
               }
             },
             animation: {
-              'gradient-x': 'gradient-x 8s ease infinite',
+              'gradient-x': 'gradient-x 15s ease infinite', /* Slowed down for elegance */
               'float': 'float 6s ease-in-out infinite',
               'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'blob': 'blob 10s infinite',
               'shimmer': 'shimmer 8s linear infinite',
               'shooting': 'shooting 5s linear infinite',
               'shooting-delayed': 'shooting 7s linear infinite 2s',
-              'spin-slow': 'spin 40s linear infinite', /* Acelerado para 40s para ser notado */
+              'spin-slow': 'spin 40s linear infinite',
             },
             keyframes: {
               'gradient-x': {
                 '0%, 100%': {
-                  'background-size': '200% 200%',
-                  'background-position': 'left center'
+                  'background-size': '400% 400%',
+                  'background-position': '0% 50%'
                 },
                 '50%': {
-                  'background-size': '200% 200%',
-                  'background-position': 'right center'
+                  'background-size': '400% 400%',
+                  'background-position': '100% 50%'
                 },
               },
               'float': {
@@ -97,7 +97,7 @@
             width: 8px;
         }
         body::-webkit-scrollbar-track {
-            background: #0B2F48; /* Updated to match new blue background */
+            background: #0B2F48; 
         }
         body::-webkit-scrollbar-thumb {
             background: #2DAAE1;
@@ -135,16 +135,19 @@
       
       /* Luxury Glass Utility */
       .glass-panel {
-        /* Lighter, clearer glass to contrast with the new background */
+        /* 
+           Darker background opacity (0.85 instead of 0.7) to create contrast 
+           against the new white/bright background phases 
+        */
         background: linear-gradient(
           165deg, 
-          rgba(255, 255, 255, 0.15) 0%, 
-          rgba(45, 170, 225, 0.10) 30%, 
-          rgba(11, 47, 72, 0.7) 60%, 
-          rgba(2, 6, 23, 0.9) 100%
+          rgba(255, 255, 255, 0.1) 0%, 
+          rgba(11, 47, 72, 0.6) 30%, 
+          rgba(11, 47, 72, 0.85) 60%, 
+          rgba(2, 6, 23, 0.95) 100%
         );
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
         
         border-top: 1px solid rgba(255, 255, 255, 0.35);
         border-left: 1px solid rgba(255, 255, 255, 0.15);
@@ -152,8 +155,8 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         
         box-shadow: 
-          0 4px 30px rgba(0, 0, 0, 0.2), 
-          0 20px 60px -10px rgba(0, 0, 0, 0.7),
+          0 4px 30px rgba(0, 0, 0, 0.3), 
+          0 20px 60px -10px rgba(0, 0, 0, 0.8),
           inset 0 0 20px rgba(255, 255, 255, 0.05);
       }
     </style>

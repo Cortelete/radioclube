@@ -103,41 +103,45 @@ const App: React.FC = () => {
       {/* Tip for Instagram Browser */}
       <BrowserGuide />
 
-      {/* --- BLUE & ELEGANT ANIMATED BACKGROUND --- */}
+      {/* --- DYNAMIC BLUE TO WHITE ANIMATED BACKGROUND --- */}
       
-      {/* 1. Base Layer: Solid Brand Blue (Not Black) */}
-      <div className="fixed inset-0 -z-50 bg-[#0B2F48]"></div>
+      {/* 
+          1. Base Animated Gradient Layer: 
+             Transitions from Dark Blue -> Light Blue -> White -> Dark Blue.
+             The 'via' colors ensure it passes through the brand cyan and white elegantly.
+             linear-gradient(-45deg, #0B2F48, #0B2F48, #2DAAE1, #ffffff, #2DAAE1, #0B2F48)
+      */}
+      <div className="fixed inset-0 -z-50 bg-[linear-gradient(-45deg,#0B2F48,#0B2F48,#2DAAE1,#ffffff,#2DAAE1,#0B2F48,#0B2F48)] bg-[length:400%_400%] animate-gradient-x"></div>
 
       {/* 
-          2. Gradient Mesh: 
-          Subtle shifting of blue tones (Navy to Cyan), blending with the base blue.
-          No black tones.
+          2. Overlay Gradient Mesh (Subtle): 
+          Adds texture even when background is white.
       */}
-      <div className="fixed inset-0 -z-40 overflow-hidden">
-         <div className="absolute inset-0 bg-gradient-to-br from-[#0B2F48] via-[#104263] to-[#1C5D85] bg-[length:400%_400%] animate-gradient-x opacity-80"></div>
+      <div className="fixed inset-0 -z-40 overflow-hidden mix-blend-overlay opacity-30">
+         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-brand-cyan/20 to-brand-navy/50 animate-pulse-slow"></div>
       </div>
 
       {/* 
           3. "Aurora" / Reflection Overlay:
           Light reflections (White and Cyan) spinning slowly.
-          Uses 'screen' blend mode to add light to the blue background without darkening it.
+          Using 'screen' so they disappear naturally into the white background but pop on the blue.
       */}
       <div className="fixed inset-0 -z-30 mix-blend-screen pointer-events-none">
-          <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,rgba(255,255,255,0.1)_60deg,rgba(45,170,225,0.3)_120deg,rgba(255,255,255,0.1)_180deg,transparent_240deg,rgba(45,170,225,0.2)_300deg,transparent_360deg)] animate-spin-slow blur-[80px] opacity-50"></div>
+          <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,rgba(255,255,255,0.1)_60deg,rgba(45,170,225,0.4)_120deg,rgba(255,255,255,0.1)_180deg,transparent_240deg,rgba(45,170,225,0.2)_300deg,transparent_360deg)] animate-spin-slow blur-[80px] opacity-60"></div>
       </div>
 
       {/* 
           4. Floating Glowing Orbs
-          Subtle highlights in cyan to match the logo.
+          These help maintain the "Blue" identity even when the background gradient hits white.
       */}
       <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
           <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#2DAAE1] rounded-full blur-[150px] opacity-20 animate-pulse-slow mix-blend-screen"></div>
-          <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#1a4a6b] rounded-full blur-[150px] opacity-30 animate-blob mix-blend-screen"></div>
+          <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#1a4a6b] rounded-full blur-[150px] opacity-30 animate-blob mix-blend-multiply"></div>
       </div>
 
       {/* 
           5. Texture
-          Very subtle noise to prevent banding
+          Very subtle noise
       */}
       <div className="fixed inset-0 -z-10 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
       
