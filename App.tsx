@@ -17,7 +17,7 @@ const SocialButton = ({ icon: Icon, onClick, label }: { icon: React.ElementType,
     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white transition-all duration-300 group-hover:bg-brand-cyan group-hover:border-brand-cyan group-hover:shadow-[0_0_20px_rgba(45,170,225,0.4)]">
       <Icon size={18} className="sm:w-5 sm:h-5" strokeWidth={1.5} />
     </div>
-    <span className="text-[9px] sm:text-[10px] font-display font-medium text-white/60 group-hover:text-white transition-colors uppercase tracking-widest">{label}</span>
+    <span className="text-[10px] sm:text-xs font-display font-medium text-white/60 group-hover:text-white transition-colors uppercase tracking-widest">{label}</span>
   </button>
 );
 
@@ -103,31 +103,53 @@ const App: React.FC = () => {
       {/* Tip for Instagram Browser */}
       <BrowserGuide />
 
-      {/* Background with Brand Colors */}
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#1e4e70] via-[#0B2F48] to-[#051826]"></div>
-      <div className="fixed inset-0 -z-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 animate-pulse-slow"></div>
+      {/* --- LUXURY ANIMATED BACKGROUND START --- */}
+      
+      {/* 1. Base Dark Blue Layer */}
+      <div className="fixed inset-0 -z-40 bg-[#051826]"></div>
+
+      {/* 2. Animated Blobs (Moving Gradients) */}
+      <div className="fixed inset-0 -z-30 overflow-hidden opacity-60">
+        {/* Top Left - Lighter Blue */}
+        <div className="absolute -top-[10%] -left-[10%] w-[80vw] h-[80vw] max-w-[500px] max-h-[500px] bg-[#1e4e70] rounded-full mix-blend-screen filter blur-[80px] animate-blob"></div>
+        
+        {/* Top Right - Cyan Accent */}
+        <div className="absolute top-[10%] -right-[10%] w-[70vw] h-[70vw] max-w-[450px] max-h-[450px] bg-[#2DAAE1] rounded-full mix-blend-screen filter blur-[100px] animate-blob" style={{ animationDelay: '2s' }}></div>
+        
+        {/* Bottom Left - Dark Navy */}
+        <div className="absolute -bottom-[20%] -left-[10%] w-[90vw] h-[90vw] max-w-[600px] max-h-[600px] bg-[#0B2F48] rounded-full mix-blend-screen filter blur-[80px] animate-blob" style={{ animationDelay: '4s' }}></div>
+      </div>
+
+      {/* 3. Luxury Texture Overlay (Subtle Stardust/Noise) */}
+      <div className="fixed inset-0 -z-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-15"></div>
+
+      {/* 4. Elegant Reflection/Sheen (Diagonal Sweep) */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 sm:opacity-20 animate-pulse-slow pointer-events-none"></div>
+      
+      {/* --- BACKGROUND END --- */}
+
 
       {/* Main Card Wrapper - Uses 100% height minus padding, distributed via Flexbox */}
       <div className="w-full max-w-[400px] h-full z-10 relative flex flex-col">
         
-        {/* The Glass Card */}
+        {/* The Glass Card - Removed inline border classes as glass-panel handles it now */}
         <div className="w-full flex-grow glass-panel rounded-2xl sm:rounded-[2rem] p-5 sm:p-8 flex flex-col items-center relative overflow-hidden transition-all">
             
-            {/* Subtle light effect at top */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-1 bg-brand-cyan/30 blur-md rounded-full"></div>
+            {/* Subtle top reflection inside card */}
+            <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[50%] bg-gradient-to-b from-white/10 to-transparent rotate-12 blur-xl pointer-events-none"></div>
 
             {/* Content Container: Flex Column with space distribution */}
             <div className="relative z-10 w-full h-full flex flex-col justify-between animate-float">
                 
                 {/* Header Section: Logo + Title + Subtitle */}
                 <div className="flex flex-col items-center shrink-0 w-full">
-                    <Logo />
+                    <Logo onClick={() => openModal(ModalType.ABOUT)} />
                     
                     <div className="relative w-full flex justify-center mt-2 sm:mt-4 mb-2">
                          <img 
                             src="/clubefm.png" 
                             alt="Rádio Clube FM" 
-                            className="h-12 sm:h-16 w-auto object-contain" 
+                            className="h-12 sm:h-16 w-auto object-contain drop-shadow-[0_0_15px_rgba(45,170,225,0.3)]" 
                          />
                     </div>
 
@@ -199,7 +221,7 @@ const App: React.FC = () => {
                     <footer className="">
                         <button 
                             onClick={() => openModal(ModalType.CREDITS)}
-                            className="text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-white/30 hover:text-brand-cyan transition-colors"
+                            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-white/30 hover:text-brand-cyan transition-colors"
                         >
                             Desenvolvido por InteligenciArte.IA
                         </button>
@@ -222,13 +244,13 @@ const App: React.FC = () => {
                 <div className="absolute inset-0 bg-brand-cyan/20 mix-blend-overlay group-hover:opacity-0 transition-opacity"></div>
                 <img src="/clube.png" alt="Rádio Antiga" className="w-full h-40 object-cover" />
             </div>
-            <p className="text-lg font-display text-brand-cyan pl-4 border-l-2 border-brand-cyan/50 italic">
+            <p className="text-xl font-display text-brand-cyan pl-4 border-l-2 border-brand-cyan/50 italic">
                 "A voz ativa da comunidade, conectando gerações."
             </p>
-            <p className="text-sm leading-relaxed text-white/80">
+            <p className="text-base leading-relaxed text-white/80">
                 A <strong>Rádio Clube Pontagrossense</strong> é um dos maiores patrimônios da comunicação do Paraná. Fundada em 1940, é reconhecida como a emissora de rádio mais antiga em atividade no estado.
             </p>
-            <p className="text-sm leading-relaxed text-white/80">
+            <p className="text-base leading-relaxed text-white/80">
                 Hoje, na frequência <strong>94,1 FM</strong>, oferece uma programação completa que integra música, jornalismo, esportes e conteúdo local de relevância.
             </p>
         </div>
@@ -240,14 +262,14 @@ const App: React.FC = () => {
         title="Fale Conosco"
       >
         <form onSubmit={handleContactSubmit} className="space-y-4">
-            <p className="text-xs text-white/60 mb-4 font-display text-center">Inicie seu atendimento via WhatsApp</p>
+            <p className="text-sm text-white/60 mb-4 font-display text-center">Inicie seu atendimento via WhatsApp</p>
             
             <div className="space-y-1">
-                <label className="text-[10px] uppercase tracking-wider text-brand-cyan font-bold pl-1">Seu Nome</label>
+                <label className="text-xs uppercase tracking-wider text-brand-cyan font-bold pl-1">Seu Nome</label>
                 <input 
                     required
                     type="text" 
-                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-base text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
                     placeholder="Ex: João Silva"
                     value={contactForm.name}
                     onChange={e => setContactForm({...contactForm, name: e.target.value})}
@@ -256,21 +278,21 @@ const App: React.FC = () => {
 
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                    <label className="text-[10px] uppercase tracking-wider text-brand-cyan font-bold pl-1">Idade</label>
+                    <label className="text-xs uppercase tracking-wider text-brand-cyan font-bold pl-1">Idade</label>
                     <input 
                         required
                         type="number" 
-                        className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
+                        className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-base text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
                         placeholder="Ex: 30"
                         value={contactForm.age}
                         onChange={e => setContactForm({...contactForm, age: e.target.value})}
                     />
                 </div>
                 <div className="space-y-1">
-                     <label className="text-[10px] uppercase tracking-wider text-brand-cyan font-bold pl-1">Perfil</label>
+                     <label className="text-xs uppercase tracking-wider text-brand-cyan font-bold pl-1">Perfil</label>
                      <div className="relative">
                         <select 
-                            className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all appearance-none"
+                            className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-base text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all appearance-none"
                             value={contactForm.type}
                             onChange={e => setContactForm({...contactForm, type: e.target.value as any})}
                         >
@@ -285,16 +307,16 @@ const App: React.FC = () => {
             </div>
 
             <div className="space-y-1">
-                <label className="text-[10px] uppercase tracking-wider text-brand-cyan font-bold pl-1">Mensagem</label>
+                <label className="text-xs uppercase tracking-wider text-brand-cyan font-bold pl-1">Mensagem</label>
                 <textarea 
-                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all h-24 resize-none placeholder:text-white/20"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-base text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all h-24 resize-none placeholder:text-white/20"
                     placeholder="Escreva aqui..."
                     value={contactForm.observation}
                     onChange={e => setContactForm({...contactForm, observation: e.target.value})}
                 ></textarea>
             </div>
 
-            <button type="submit" className="w-full bg-brand-cyan hover:bg-[#2390C0] text-white font-display font-semibold py-3.5 rounded-xl shadow-lg shadow-brand-cyan/20 transform active:scale-95 transition-all mt-2">
+            <button type="submit" className="w-full bg-brand-cyan hover:bg-[#2390C0] text-white font-display font-semibold py-3.5 rounded-xl shadow-lg shadow-brand-cyan/20 transform active:scale-95 transition-all mt-2 text-base">
                 Enviar para WhatsApp
             </button>
         </form>
@@ -306,14 +328,14 @@ const App: React.FC = () => {
         title="Pedir Música"
       >
         <form onSubmit={handleMusicRequestSubmit} className="space-y-4">
-             <p className="text-xs text-white/60 mb-4 font-display text-center">Peça seu som favorito!</p>
+             <p className="text-sm text-white/60 mb-4 font-display text-center">Peça seu som favorito!</p>
              
              <div className="space-y-1">
-                <label className="text-[10px] uppercase tracking-wider text-brand-cyan font-bold pl-1">Seu Nome</label>
+                <label className="text-xs uppercase tracking-wider text-brand-cyan font-bold pl-1">Seu Nome</label>
                 <input 
                     required
                     type="text" 
-                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-base text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
                     placeholder="Quem manda o som?"
                     value={musicForm.name}
                     onChange={e => setMusicForm({...musicForm, name: e.target.value})}
@@ -322,22 +344,22 @@ const App: React.FC = () => {
 
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                    <label className="text-[10px] uppercase tracking-wider text-brand-cyan font-bold pl-1">Música</label>
+                    <label className="text-xs uppercase tracking-wider text-brand-cyan font-bold pl-1">Música</label>
                     <input 
                         required
                         type="text" 
-                        className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
+                        className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-base text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
                         placeholder="Nome da música"
                         value={musicForm.music}
                         onChange={e => setMusicForm({...musicForm, music: e.target.value})}
                     />
                 </div>
                 <div className="space-y-1">
-                    <label className="text-[10px] uppercase tracking-wider text-brand-cyan font-bold pl-1">Cantor/Banda</label>
+                    <label className="text-xs uppercase tracking-wider text-brand-cyan font-bold pl-1">Cantor/Banda</label>
                     <input 
                         required
                         type="text" 
-                        className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
+                        className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-base text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
                         placeholder="Quem canta?"
                         value={musicForm.artist}
                         onChange={e => setMusicForm({...musicForm, artist: e.target.value})}
@@ -346,10 +368,10 @@ const App: React.FC = () => {
             </div>
 
             <div className="space-y-1">
-                <label className="text-[10px] uppercase tracking-wider text-brand-cyan font-bold pl-1">Versão <span className="text-white/30 font-light normal-case tracking-normal">(Opcional)</span></label>
+                <label className="text-xs uppercase tracking-wider text-brand-cyan font-bold pl-1">Versão <span className="text-white/30 font-light normal-case tracking-normal">(Opcional)</span></label>
                 <input 
                     type="text" 
-                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-base text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
                     placeholder="Ex: Ao vivo, Acústico..."
                     value={musicForm.version}
                     onChange={e => setMusicForm({...musicForm, version: e.target.value})}
@@ -357,16 +379,16 @@ const App: React.FC = () => {
             </div>
 
             <div className="space-y-1">
-                <label className="text-[10px] uppercase tracking-wider text-brand-cyan font-bold pl-1">Mensagem <span className="text-white/30 font-light normal-case tracking-normal">(Opcional)</span></label>
+                <label className="text-xs uppercase tracking-wider text-brand-cyan font-bold pl-1">Mensagem <span className="text-white/30 font-light normal-case tracking-normal">(Opcional)</span></label>
                 <textarea 
-                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all h-20 resize-none placeholder:text-white/20"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-base text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all h-20 resize-none placeholder:text-white/20"
                     placeholder="Mande um recado para a galera..."
                     value={musicForm.message}
                     onChange={e => setMusicForm({...musicForm, message: e.target.value})}
                 ></textarea>
             </div>
 
-            <button type="submit" className="w-full bg-brand-cyan hover:bg-[#2390C0] text-white font-display font-semibold py-3.5 rounded-xl shadow-lg shadow-brand-cyan/20 transform active:scale-95 transition-all mt-2">
+            <button type="submit" className="w-full bg-brand-cyan hover:bg-[#2390C0] text-white font-display font-semibold py-3.5 rounded-xl shadow-lg shadow-brand-cyan/20 transform active:scale-95 transition-all mt-2 text-base">
                 Enviar Pedido
             </button>
         </form>
@@ -381,21 +403,21 @@ const App: React.FC = () => {
             <a href="https://www.instagram.com/radioclubepg" target="_blank" rel="noreferrer" className="group flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all">
                 <div className="flex items-center gap-4">
                     <div className="p-2 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-lg text-white"><Instagram size={20} /></div>
-                    <span className="font-display font-medium text-white">Instagram</span>
+                    <span className="font-display font-medium text-white text-base">Instagram</span>
                 </div>
                 <div className="text-white/40 group-hover:translate-x-1 transition-transform">→</div>
             </a>
             <a href="https://www.facebook.com/radioclubefm941" target="_blank" rel="noreferrer" className="group flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all">
                 <div className="flex items-center gap-4">
                     <div className="p-2 bg-blue-600 rounded-lg text-white"><Facebook size={20} /></div>
-                    <span className="font-display font-medium text-white">Facebook</span>
+                    <span className="font-display font-medium text-white text-base">Facebook</span>
                 </div>
                 <div className="text-white/40 group-hover:translate-x-1 transition-transform">→</div>
             </a>
             <a href="https://www.tiktok.com/@clube941" target="_blank" rel="noreferrer" className="group flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all">
                 <div className="flex items-center gap-4">
                     <div className="p-2 bg-black rounded-lg text-white border border-white/20"><TikTokIcon size={20} /></div>
-                    <span className="font-display font-medium text-white">TikTok</span>
+                    <span className="font-display font-medium text-white text-base">TikTok</span>
                 </div>
                 <div className="text-white/40 group-hover:translate-x-1 transition-transform">→</div>
             </a>
@@ -408,7 +430,7 @@ const App: React.FC = () => {
          title="Localização"
       >
         <div className="space-y-5 font-light">
-            <p className="text-center text-white/70 text-sm">Venha tomar um café conosco!</p>
+            <p className="text-center text-white/70 text-base">Venha tomar um café conosco!</p>
             <div className="w-full aspect-video rounded-xl overflow-hidden border border-white/10 shadow-lg relative bg-white/5">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.162130679708!2d-50.16386731373718!3d-25.096372520473036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e81a4160cd639d%3A0xfc25c2251513ab14!2sR%C3%A1dio%20Clube%20Pontagrossense!5e0!3m2!1spt-BR!2sbr!4v1765803793350!5m2!1spt-BR!2sbr" 
@@ -422,14 +444,14 @@ const App: React.FC = () => {
                 ></iframe>
             </div>
             <div className="text-center">
-                <h3 className="font-display font-bold text-white text-lg">Rádio Clube FM</h3>
-                <p className="text-sm text-brand-cyan mt-1">XV de Novembro, 344<br/>Ponta Grossa - PR</p>
+                <h3 className="font-display font-bold text-white text-xl">Rádio Clube FM</h3>
+                <p className="text-base text-brand-cyan mt-1">XV de Novembro, 344<br/>Ponta Grossa - PR</p>
             </div>
             <a 
                 href="https://goo.gl/maps/YOUR_MAP_LINK_HERE" 
                 target="_blank"
                 rel="noreferrer"
-                className="block w-full text-center py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl font-display font-medium transition-colors border border-white/5"
+                className="block w-full text-center py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl font-display font-medium transition-colors border border-white/5 text-base"
             >
                 Abrir no Google Maps
             </a>
@@ -442,7 +464,7 @@ const App: React.FC = () => {
         title="Avalie a Rádio"
       >
          <div className="flex flex-col items-center gap-8 py-6">
-            <p className="text-center text-white/80 font-light text-sm">Sua opinião é fundamental para nós.</p>
+            <p className="text-center text-white/80 font-light text-base">Sua opinião é fundamental para nós.</p>
             <div className="flex gap-3">
                 {[1, 2, 3, 4, 5].map((star) => (
                     <button 
@@ -452,7 +474,7 @@ const App: React.FC = () => {
                         className="transition-transform hover:scale-110 focus:outline-none group"
                     >
                         <Star 
-                            size={32} 
+                            size={36} 
                             strokeWidth={1}
                             className={`${star <= rating ? "fill-brand-cyan text-brand-cyan drop-shadow-[0_0_10px_rgba(45,170,225,0.5)]" : "fill-transparent text-white/20"} transition-all`}
                         />
@@ -469,14 +491,14 @@ const App: React.FC = () => {
       >
           <form action="https://formsubmit.co/your-email@example.com" method="POST" className="space-y-4">
              <input type="hidden" name="_subject" value="Feedback Negativo - Rádio Clube" />
-             <p className="text-sm text-white/60 font-light">Como podemos melhorar para chegar às 5 estrelas?</p>
+             <p className="text-base text-white/60 font-light">Como podemos melhorar para chegar às 5 estrelas?</p>
              <textarea 
                 name="message"
                 required
-                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-white h-32 resize-none focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
+                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-base text-white h-32 resize-none focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
                 placeholder="Digite aqui..."
              ></textarea>
-             <button type="submit" className="w-full bg-brand-cyan hover:bg-[#2390C0] text-white font-display font-semibold py-3 rounded-xl shadow-lg shadow-brand-cyan/20">
+             <button type="submit" className="w-full bg-brand-cyan hover:bg-[#2390C0] text-white font-display font-semibold py-3 rounded-xl shadow-lg shadow-brand-cyan/20 text-base">
                 Enviar
              </button>
           </form>
@@ -489,19 +511,19 @@ const App: React.FC = () => {
       >
         <div className="text-center space-y-6">
             <div className="p-6 bg-gradient-to-br from-white/5 to-transparent rounded-2xl border border-white/5">
-                <h3 className="text-lg font-display font-bold text-white tracking-wide">
+                <h3 className="text-xl font-display font-bold text-white tracking-wide">
                     InteligenciArte.IA
                 </h3>
                 <p className="text-xs text-brand-cyan mt-1 uppercase tracking-widest opacity-80">Tecnologia & Design</p>
             </div>
             
-            <p className="text-white/60 text-xs font-light px-4">
+            <p className="text-white/60 text-sm font-light px-4">
                 Deseja um projeto exclusivo e de alta performance como este?
             </p>
 
             <button 
                 onClick={() => handleDevContact("Rádio Clube")}
-                className="w-full flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-display font-bold py-4 rounded-xl shadow-lg shadow-green-500/20 transform active:scale-95 transition-all"
+                className="w-full flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-display font-bold py-4 rounded-xl shadow-lg shadow-green-500/20 transform active:scale-95 transition-all text-base"
             >
                 <MessageCircle size={20} />
                 Solicitar Orçamento

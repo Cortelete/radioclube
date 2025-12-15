@@ -27,7 +27,9 @@
             animation: {
               'gradient-x': 'gradient-x 10s ease infinite',
               'float': 'float 6s ease-in-out infinite',
-              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'blob': 'blob 10s infinite',
+              'shimmer': 'shimmer 8s linear infinite',
             },
             keyframes: {
               'gradient-x': {
@@ -43,6 +45,16 @@
               'float': {
                 '0%, 100%': { transform: 'translateY(0)' },
                 '50%': { transform: 'translateY(-5px)' },
+              },
+              'blob': {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              },
+              'shimmer': {
+                '0%': { backgroundPosition: '200% 0' },
+                '100%': { backgroundPosition: '-200% 0' }
               }
             }
           }
@@ -82,13 +94,29 @@
         backface-visibility: hidden;
       }
       
-      /* Glass Utility */
+      /* Luxury Glass Utility */
       .glass-panel {
-        background: rgba(16, 52, 80, 0.6);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        /* Gradient: Top (White-ish/Crystal) -> Middle (Cyan hint) -> Bottom (Dark Navy) */
+        background: linear-gradient(
+          165deg, 
+          rgba(255, 255, 255, 0.12) 0%, 
+          rgba(45, 170, 225, 0.15) 30%, 
+          rgba(11, 47, 72, 0.6) 60%, 
+          rgba(5, 24, 38, 0.85) 100%
+        );
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        
+        /* Elegant Border Lighting: Brighter on top/left to simulate light source */
+        border-top: 1px solid rgba(255, 255, 255, 0.4);
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        
+        box-shadow: 
+          0 4px 30px rgba(0, 0, 0, 0.1), 
+          0 20px 60px -10px rgba(0, 0, 0, 0.6),
+          inset 0 0 20px rgba(255, 255, 255, 0.05); /* Inner glow */
       }
     </style>
   <script type="importmap">

@@ -32,7 +32,7 @@ export const Subtitle: React.FC = () => {
     <div className="h-8 flex items-center justify-center w-full px-2 overflow-hidden">
       <p 
         className={`
-          text-xs sm:text-sm text-brand-cyan font-medium font-sans text-center tracking-wide
+          text-sm sm:text-base text-brand-cyan font-medium font-sans text-center tracking-wide
           transition-all duration-500 transform
           ${fade ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-2 blur-sm'}
         `}

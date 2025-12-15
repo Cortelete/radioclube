@@ -53,11 +53,11 @@ export const AudioPlayer: React.FC = () => {
                 <Radio size={16} className="sm:w-[18px] sm:h-[18px]" />
              </div>
              <div className="flex flex-col">
-                 <span className="text-[9px] sm:text-[10px] font-bold tracking-widest text-brand-cyan uppercase mb-0.5 flex items-center gap-1">
+                 <span className="text-[10px] sm:text-xs font-bold tracking-widest text-brand-cyan uppercase mb-0.5 flex items-center gap-1">
                     {isPlaying ? <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span> : null}
                     {isPlaying ? 'No Ar' : 'Offline'}
                  </span>
-                 <span className="text-white font-display font-bold text-xs sm:text-sm">94.1 FM</span>
+                 <span className="text-white font-display font-bold text-sm sm:text-base">94.1 FM</span>
              </div>
         </div>
 
@@ -65,7 +65,7 @@ export const AudioPlayer: React.FC = () => {
             <button 
                 onClick={goLive}
                 className={`
-                    px-2 py-0.5 rounded border text-[8px] sm:text-[9px] font-bold uppercase tracking-wider transition-all
+                    px-2 py-0.5 rounded border text-[9px] sm:text-[10px] font-bold uppercase tracking-wider transition-all
                     ${isLive && isPlaying 
                         ? "bg-red-500/20 border-red-500/50 text-red-400 shadow-[0_0_10px_rgba(239,68,68,0.2)] hover:bg-red-500/30" 
                         : "bg-white/5 hover:bg-white/10 border-white/10 text-white/60 hover:text-white"

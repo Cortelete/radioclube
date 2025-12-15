@@ -27,7 +27,7 @@ export const Button: React.FC<ButtonProps> = ({ label, icon: Icon, onClick, clas
             <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/5 text-brand-cyan group-hover:text-white group-hover:bg-brand-cyan transition-colors duration-300">
                 <Icon size={18} className="sm:w-5 sm:h-5" strokeWidth={1.5} />
             </div>
-            <span className="font-display font-medium text-xs sm:text-base text-white/90 group-hover:text-white transition-colors text-left leading-tight">
+            <span className="font-display font-medium text-sm sm:text-lg text-white/90 group-hover:text-white transition-colors text-left leading-tight">
                 {label}
             </span>
         </div>

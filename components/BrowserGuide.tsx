@@ -26,10 +26,10 @@ export const BrowserGuide: React.FC = () => {
         <div className="bg-[#0B2F48]/95 backdrop-blur-xl border border-white/20 rounded-xl p-4 text-white shadow-2xl relative z-0">
           <div className="flex items-center gap-2 mb-3 border-b border-white/10 pb-2">
             <ExternalLink size={16} className="text-brand-cyan" />
-            <h3 className="font-display font-bold text-xs uppercase tracking-wider text-brand-cyan">Dica Importante</h3>
+            <h3 className="font-display font-bold text-sm uppercase tracking-wider text-brand-cyan">Dica Importante</h3>
           </div>
           
-          <p className="text-xs leading-relaxed text-white/90 font-light mb-4">
+          <p className="text-sm leading-relaxed text-white/90 font-light mb-4">
             Chegou aqui pelo Instagram? <br/>
             Então clique nesses <strong>três pontinhos acima</strong> e selecione para <strong>"Abrir no navegador externo"</strong>.
             <br/><br/>
@@ -38,7 +38,7 @@ export const BrowserGuide: React.FC = () => {
 
           <button
             onClick={() => setIsVisible(false)}
-            className="w-full bg-brand-cyan hover:bg-[#2390C0] text-white font-display font-bold text-xs py-2.5 rounded-lg shadow-lg shadow-brand-cyan/20 transition-all active:scale-95"
+            className="w-full bg-brand-cyan hover:bg-[#2390C0] text-white font-display font-bold text-sm py-2.5 rounded-lg shadow-lg shadow-brand-cyan/20 transition-all active:scale-95"
           >
             Entendi
           </button>

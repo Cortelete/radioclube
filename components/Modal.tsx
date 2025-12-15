@@ -40,12 +40,12 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }
         className={`
             relative w-full max-w-md bg-[#0B2F48] border border-white/10 rounded-3xl shadow-2xl flex flex-col max-h-[85vh]
             transform transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)
-            ${isOpen ? 'scale-100 translate-y-0' : 'scale-95 translate-y-8'}
+            ${isOpen ? 'scale-100 opacity-100' : 'scale-75 opacity-0'}
         `}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-white/5">
-            <h2 className="text-xl font-display text-white font-bold tracking-tight">
+            <h2 className="text-2xl font-display text-white font-bold tracking-tight">
                 {title}
             </h2>
             <button 
