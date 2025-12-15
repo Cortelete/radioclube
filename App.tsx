@@ -98,7 +98,7 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="h-[100dvh] w-full relative flex flex-col items-center justify-center font-sans overflow-hidden bg-brand-dark">
+    <div className="h-[100dvh] md:h-auto md:min-h-[100dvh] w-full relative flex flex-col items-center justify-center font-sans overflow-hidden md:overflow-x-hidden md:overflow-y-auto bg-brand-dark">
       
       {/* Tip for Instagram Browser */}
       <BrowserGuide />
@@ -137,11 +137,12 @@ const App: React.FC = () => {
 
       {/* 
          Main Card Wrapper 
-         - Mobile: Full height (h-full), full width (w-full), padding handled by parent or internal.
-         - Desktop (md+): Constrained max-height (80vh - was 95vh) to ensure it fits without scrolling on smaller laptops, 
-           and constrained width/aspect-ratio to simulate mobile device.
+         - Mobile: Full height (h-full), fixed.
+         - Desktop (md+): Auto height (md:h-auto) to allow growing with content, 
+           and margins (md:my-10) so it doesn't touch edges if content is tall.
+           Max-width constrained to 360px for phone look.
       */}
-      <div className="w-full max-w-[420px] md:max-w-[360px] h-full md:h-auto md:max-h-[82vh] md:aspect-[9/19] z-10 relative flex flex-col p-2 sm:p-4 md:p-0 transition-all duration-300">
+      <div className="w-full max-w-[420px] md:max-w-[360px] h-full md:h-auto md:my-10 z-10 relative flex flex-col p-2 sm:p-4 md:p-0 transition-all duration-300">
         
         {/* The Glass Card */}
         <div className="w-full h-full glass-panel rounded-3xl sm:rounded-[2.5rem] p-4 sm:p-6 md:p-6 flex flex-col items-center relative overflow-hidden transition-all shadow-2xl">

@@ -63,14 +63,43 @@
       }
     </script>
     <style>
-      /* Prevent scrolling on the body, handle overflow in specific containers if absolutely needed */
+      /* Base styles */
       html, body {
         height: 100%;
-        overflow: hidden;
         overscroll-behavior: none;
       }
 
-      /* Custom scrollbar for modals only */
+      /* Mobile: Fixed view, no scroll on body (App handles it if needed) */
+      @media (max-width: 768px) {
+        html, body {
+          overflow: hidden;
+        }
+      }
+
+      /* Desktop: Allow scrollbar if content exceeds viewport */
+      @media (min-width: 769px) {
+        html, body {
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+        
+        /* Custom scrollbar for the page itself on desktop */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-track {
+            background: #020408;
+        }
+        body::-webkit-scrollbar-thumb {
+            background: #2DAAE1;
+            border-radius: 4px;
+        }
+        body::-webkit-scrollbar-thumb:hover {
+            background: #2390C0;
+        }
+      }
+
+      /* Custom scrollbar for internal modals */
       .custom-scrollbar::-webkit-scrollbar {
         width: 4px;
       }
@@ -133,7 +162,7 @@
 }
 </script>
 </head>
-  <body class="bg-brand-dark text-white overflow-hidden antialiased selection:bg-brand-cyan selection:text-white h-full w-full">
+  <body class="bg-brand-dark text-white antialiased selection:bg-brand-cyan selection:text-white h-full w-full">
     <div id="root" class="h-full w-full"></div>
     <script type="module" src="/index.tsx"></script>
   </body>
