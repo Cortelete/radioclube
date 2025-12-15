@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Info, MessageCircle, MapPin, Star, Instagram, Facebook, Music } from 'lucide-react';
+import { Info, MessageCircle, MapPin, Star, Instagram, Facebook, Music, Globe } from 'lucide-react';
 import { ModalType, ContactFormData, MusicRequestFormData } from './types';
 import { Logo } from './components/Logo';
 import { Subtitle } from './components/Subtitle';
@@ -194,6 +194,12 @@ const App: React.FC = () => {
                             label="O que é a Rádio Clube" 
                             icon={Info} 
                             onClick={() => openModal(ModalType.ABOUT)} 
+                        />
+
+                        <Button 
+                            label="Portal Clube" 
+                            icon={Globe} 
+                            onClick={() => window.open("https://portalclube941.com.br/", "_blank")} 
                         />
 
                         <Button 
