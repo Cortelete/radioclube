@@ -98,57 +98,62 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="h-[100dvh] md:h-auto md:min-h-[100dvh] w-full relative flex flex-col items-center justify-center font-sans overflow-hidden md:overflow-x-hidden md:overflow-y-auto bg-brand-dark">
+    <div className="h-[100dvh] md:h-auto md:min-h-[100dvh] w-full relative flex flex-col items-center justify-center font-sans overflow-hidden md:overflow-x-hidden md:overflow-y-auto bg-[#0B2F48]">
       
       {/* Tip for Instagram Browser */}
       <BrowserGuide />
 
-      {/* --- LUXURY ANIMATED BACKGROUND START --- */}
+      {/* --- BLUE & ELEGANT ANIMATED BACKGROUND --- */}
       
-      {/* 1. Base Deep Layer */}
-      <div className="fixed inset-0 -z-50 bg-[#020408]"></div>
+      {/* 1. Base Layer: Solid Brand Blue (Not Black) */}
+      <div className="fixed inset-0 -z-50 bg-[#0B2F48]"></div>
 
-      {/* 2. Complex Gradient Mesh (Aurora Effect) */}
+      {/* 
+          2. Gradient Mesh: 
+          Subtle shifting of blue tones (Navy to Cyan), blending with the base blue.
+          No black tones.
+      */}
       <div className="fixed inset-0 -z-40 overflow-hidden">
-         {/* Top Left - Deep Royal Blue */}
-         <div className="absolute -top-[10%] -left-[10%] w-[70vw] h-[70vw] bg-blue-900/30 rounded-full blur-[120px] animate-float" style={{animationDuration: '15s'}}></div>
-         
-         {/* Bottom Right - Cyan Glow */}
-         <div className="absolute top-[40%] -right-[10%] w-[60vw] h-[60vw] bg-[#004e92]/20 rounded-full blur-[100px] animate-pulse-slow"></div>
-         
-         {/* Bottom Left - Dark Navy Accent */}
-         <div className="absolute -bottom-[20%] -left-[10%] w-[80vw] h-[80vw] bg-[#0f2027]/80 rounded-full blur-[90px] animate-float" style={{animationDuration: '20s', animationDelay: '2s'}}></div>
-         
-         {/* Center Top - Light Cyan Highlight */}
-         <div className="absolute -top-[20%] left-[20%] w-[50vw] h-[50vw] bg-brand-cyan/10 rounded-full blur-[130px] mix-blend-screen animate-blob"></div>
+         <div className="absolute inset-0 bg-gradient-to-br from-[#0B2F48] via-[#104263] to-[#1C5D85] bg-[length:400%_400%] animate-gradient-x opacity-80"></div>
       </div>
 
-      {/* 3. Luxury Grain/Noise Texture (Subtle) */}
-      <div className="fixed inset-0 -z-30 opacity-[0.03] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+      {/* 
+          3. "Aurora" / Reflection Overlay:
+          Light reflections (White and Cyan) spinning slowly.
+          Uses 'screen' blend mode to add light to the blue background without darkening it.
+      */}
+      <div className="fixed inset-0 -z-30 mix-blend-screen pointer-events-none">
+          <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,rgba(255,255,255,0.1)_60deg,rgba(45,170,225,0.3)_120deg,rgba(255,255,255,0.1)_180deg,transparent_240deg,rgba(45,170,225,0.2)_300deg,transparent_360deg)] animate-spin-slow blur-[80px] opacity-50"></div>
+      </div>
 
-      {/* 4. Vignette for Focus */}
-      <div className="fixed inset-0 -z-20 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(2,4,8,0.4)_100%)] pointer-events-none"></div>
+      {/* 
+          4. Floating Glowing Orbs
+          Subtle highlights in cyan to match the logo.
+      */}
+      <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#2DAAE1] rounded-full blur-[150px] opacity-20 animate-pulse-slow mix-blend-screen"></div>
+          <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#1a4a6b] rounded-full blur-[150px] opacity-30 animate-blob mix-blend-screen"></div>
+      </div>
 
-      {/* 5. Diagonal Sheen Animation */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent opacity-0 sm:opacity-100 animate-pulse-slow pointer-events-none"></div>
+      {/* 
+          5. Texture
+          Very subtle noise to prevent banding
+      */}
+      <div className="fixed inset-0 -z-10 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
       
       {/* --- BACKGROUND END --- */}
 
 
       {/* 
          Main Card Wrapper 
-         - Mobile: Full height (h-full), fixed.
-         - Desktop (md+): Auto height (md:h-auto) to allow growing with content, 
-           and margins (md:my-10) so it doesn't touch edges if content is tall.
-           Max-width constrained to 360px for phone look.
       */}
       <div className="w-full max-w-[420px] md:max-w-[360px] h-full md:h-auto md:my-10 z-10 relative flex flex-col p-2 sm:p-4 md:p-0 transition-all duration-300">
         
         {/* The Glass Card */}
-        <div className="w-full h-full glass-panel rounded-3xl sm:rounded-[2.5rem] p-4 sm:p-6 md:p-6 flex flex-col items-center relative overflow-hidden transition-all shadow-2xl">
+        <div className="w-full h-full glass-panel rounded-3xl sm:rounded-[2.5rem] p-4 sm:p-6 md:p-6 flex flex-col items-center relative overflow-hidden transition-all shadow-2xl border border-white/10">
             
-            {/* Subtle top reflection inside card */}
-            <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[50%] bg-gradient-to-b from-white/10 to-transparent rotate-12 blur-xl pointer-events-none"></div>
+            {/* Internal Shimmer for the Card itself */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-50 pointer-events-none"></div>
 
             {/* Content Container: Flex Column with space distribution */}
             <div className="relative z-10 w-full h-full flex flex-col justify-between animate-float">
@@ -163,7 +168,7 @@ const App: React.FC = () => {
                          <img 
                             src="/clubefm.png" 
                             alt="Rádio Clube FM" 
-                            className="h-10 sm:h-14 md:h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(45,170,225,0.3)]" 
+                            className="h-10 sm:h-14 md:h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(45,170,225,0.4)]" 
                          />
                     </div>
 

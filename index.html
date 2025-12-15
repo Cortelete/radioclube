@@ -26,11 +26,14 @@
               }
             },
             animation: {
-              'gradient-x': 'gradient-x 10s ease infinite',
+              'gradient-x': 'gradient-x 8s ease infinite',
               'float': 'float 6s ease-in-out infinite',
               'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'blob': 'blob 10s infinite',
               'shimmer': 'shimmer 8s linear infinite',
+              'shooting': 'shooting 5s linear infinite',
+              'shooting-delayed': 'shooting 7s linear infinite 2s',
+              'spin-slow': 'spin 40s linear infinite', /* Acelerado para 40s para ser notado */
             },
             keyframes: {
               'gradient-x': {
@@ -56,6 +59,12 @@
               'shimmer': {
                 '0%': { backgroundPosition: '200% 0' },
                 '100%': { backgroundPosition: '-200% 0' }
+              },
+              'shooting': {
+                '0%': { transform: 'translate(0, 0) rotate(315deg) scale(0)', opacity: '0' },
+                '10%': { opacity: '1', transform: 'translate(0, 0) rotate(315deg) scale(1)' },
+                '20%': { transform: 'translate(-100px, 100px) rotate(315deg) scale(0.5)', opacity: '0' },
+                '100%': { transform: 'translate(-100px, 100px) rotate(315deg) scale(0.5)', opacity: '0' }
               }
             }
           }
@@ -88,7 +97,7 @@
             width: 8px;
         }
         body::-webkit-scrollbar-track {
-            background: #020408;
+            background: #0B2F48; /* Updated to match new blue background */
         }
         body::-webkit-scrollbar-thumb {
             background: #2DAAE1;
@@ -126,27 +135,26 @@
       
       /* Luxury Glass Utility */
       .glass-panel {
-        /* Gradient: Top (White-ish/Crystal) -> Middle (Cyan hint) -> Bottom (Dark Navy) */
+        /* Lighter, clearer glass to contrast with the new background */
         background: linear-gradient(
           165deg, 
-          rgba(255, 255, 255, 0.12) 0%, 
-          rgba(45, 170, 225, 0.15) 30%, 
-          rgba(11, 47, 72, 0.6) 60%, 
-          rgba(5, 24, 38, 0.85) 100%
+          rgba(255, 255, 255, 0.15) 0%, 
+          rgba(45, 170, 225, 0.10) 30%, 
+          rgba(11, 47, 72, 0.7) 60%, 
+          rgba(2, 6, 23, 0.9) 100%
         );
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         
-        /* Elegant Border Lighting: Brighter on top/left to simulate light source */
-        border-top: 1px solid rgba(255, 255, 255, 0.4);
-        border-left: 1px solid rgba(255, 255, 255, 0.2);
-        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid rgba(255, 255, 255, 0.35);
+        border-left: 1px solid rgba(255, 255, 255, 0.15);
+        border-right: 1px solid rgba(255, 255, 255, 0.15);
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         
         box-shadow: 
-          0 4px 30px rgba(0, 0, 0, 0.1), 
-          0 20px 60px -10px rgba(0, 0, 0, 0.6),
-          inset 0 0 20px rgba(255, 255, 255, 0.05); /* Inner glow */
+          0 4px 30px rgba(0, 0, 0, 0.2), 
+          0 20px 60px -10px rgba(0, 0, 0, 0.7),
+          inset 0 0 20px rgba(255, 255, 255, 0.05);
       }
     </style>
   <script type="importmap">
