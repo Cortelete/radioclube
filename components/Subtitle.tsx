@@ -29,7 +29,7 @@ export const Subtitle: React.FC = () => {
   }, []);
 
   return (
-    <div className="h-8 flex items-center justify-center w-full px-2 overflow-hidden">
+    <div className="h-10 sm:h-12 flex items-center justify-center w-full px-2 overflow-hidden">
       <p 
         className={`
           text-sm sm:text-base text-brand-cyan font-medium font-sans text-center tracking-wide

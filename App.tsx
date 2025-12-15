@@ -98,7 +98,7 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="h-[100dvh] w-full relative flex flex-col items-center justify-center py-2 sm:py-6 px-3 sm:px-4 font-sans overflow-hidden">
+    <div className="h-[100dvh] w-full relative flex flex-col items-center justify-center font-sans overflow-hidden bg-brand-dark">
       
       {/* Tip for Instagram Browser */}
       <BrowserGuide />
@@ -129,11 +129,16 @@ const App: React.FC = () => {
       {/* --- BACKGROUND END --- */}
 
 
-      {/* Main Card Wrapper - Uses 100% height minus padding, distributed via Flexbox */}
-      <div className="w-full max-w-[400px] h-full z-10 relative flex flex-col">
+      {/* 
+         Main Card Wrapper 
+         - Mobile: Full height (h-full), full width (w-full), padding handled by parent or internal.
+         - Desktop (md+): Constrained max-height (95vh) to ensure it fits without scrolling, 
+           and constrained width/aspect-ratio to simulate mobile device.
+      */}
+      <div className="w-full max-w-[420px] h-full md:h-auto md:max-h-[95vh] md:aspect-[9/18] z-10 relative flex flex-col p-2 sm:p-4 md:p-0 transition-all duration-300">
         
-        {/* The Glass Card - Removed inline border classes as glass-panel handles it now */}
-        <div className="w-full flex-grow glass-panel rounded-2xl sm:rounded-[2rem] p-5 sm:p-8 flex flex-col items-center relative overflow-hidden transition-all">
+        {/* The Glass Card */}
+        <div className="w-full h-full glass-panel rounded-3xl sm:rounded-[2.5rem] p-5 sm:p-6 md:p-8 flex flex-col items-center relative overflow-hidden transition-all shadow-2xl">
             
             {/* Subtle top reflection inside card */}
             <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[50%] bg-gradient-to-b from-white/10 to-transparent rotate-12 blur-xl pointer-events-none"></div>
@@ -143,26 +148,28 @@ const App: React.FC = () => {
                 
                 {/* Header Section: Logo + Title + Subtitle */}
                 <div className="flex flex-col items-center shrink-0 w-full">
-                    <Logo onClick={() => openModal(ModalType.ABOUT)} />
+                    <div className="transform scale-90 sm:scale-100">
+                        <Logo onClick={() => openModal(ModalType.ABOUT)} />
+                    </div>
                     
-                    <div className="relative w-full flex justify-center mt-2 sm:mt-4 mb-2">
+                    <div className="relative w-full flex justify-center mt-3 mb-3 sm:mb-4">
                          <img 
                             src="/clubefm.png" 
                             alt="Rádio Clube FM" 
-                            className="h-12 sm:h-16 w-auto object-contain drop-shadow-[0_0_15px_rgba(45,170,225,0.3)]" 
+                            className="h-10 sm:h-14 md:h-16 w-auto object-contain drop-shadow-[0_0_15px_rgba(45,170,225,0.3)]" 
                          />
                     </div>
 
-                    <div className="w-full">
+                    <div className="w-full mb-3 sm:mb-4">
                       <Subtitle />
                     </div>
                 </div>
 
                 {/* Middle Section: Player + Buttons */}
-                <div className="w-full flex flex-col gap-2 sm:gap-4 my-auto justify-center">
+                <div className="w-full flex flex-col gap-2 sm:gap-3 my-auto justify-center">
                     <AudioPlayer />
                     
-                    <div className="flex flex-col gap-2 sm:gap-3 w-full">
+                    <div className="flex flex-col gap-2 w-full">
                         <Button 
                             label="O que é a Rádio Clube" 
                             icon={Info} 
@@ -196,7 +203,7 @@ const App: React.FC = () => {
                 </div>
 
                 {/* Bottom Section: Socials + Footer */}
-                <div className="flex flex-col items-center gap-2 sm:gap-6 shrink-0 mt-2 sm:mt-4">
+                <div className="flex flex-col items-center gap-3 sm:gap-5 shrink-0 mt-2">
                      {/* Divider */}
                      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 

@@ -18,8 +18,10 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }
       setShow(true);
       document.body.style.overflow = 'hidden';
     } else {
-      setTimeout(() => setShow(false), 300);
+      // Increased timeout to match the smoother animation duration
+      const timer = setTimeout(() => setShow(false), 500);
       document.body.style.overflow = 'unset';
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
@@ -27,11 +29,11 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }
 
   return (
     <div 
-        className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+        className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-500 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
     >
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-[#051826]/80 backdrop-blur-md transition-opacity"
+        className={`absolute inset-0 bg-[#051826]/80 backdrop-blur-md transition-opacity duration-500 ease-out ${isOpen ? 'opacity-100' : 'opacity-0'}`}
         onClick={onClose}
       />
 
@@ -39,12 +41,12 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }
       <div 
         className={`
             relative w-full max-w-md bg-[#0B2F48] border border-white/10 rounded-3xl shadow-2xl flex flex-col max-h-[85vh]
-            transform transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)
-            ${isOpen ? 'scale-100 opacity-100' : 'scale-75 opacity-0'}
+            transform transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1)
+            ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-8'}
         `}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-white/5">
+        <div className="flex items-center justify-between p-6 border-b border-white/5 shrink-0">
             <h2 className="text-2xl font-display text-white font-bold tracking-tight">
                 {title}
             </h2>
