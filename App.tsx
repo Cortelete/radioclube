@@ -150,8 +150,9 @@ const App: React.FC = () => {
 
       {/* 
          Main Card Wrapper 
+         UPDATED: Keeping md:max-w to 480px for desktop balance
       */}
-      <div className="w-full max-w-[420px] md:max-w-[360px] h-full md:h-auto md:my-10 z-10 relative flex flex-col p-2 sm:p-4 md:p-0 transition-all duration-300">
+      <div className="w-full max-w-[420px] md:max-w-[480px] h-full md:h-auto md:my-10 z-10 relative flex flex-col p-2 sm:p-4 md:p-0 transition-all duration-300">
         
         {/* The Glass Card */}
         <div className="w-full h-full glass-panel rounded-3xl sm:rounded-[2.5rem] p-4 sm:p-6 md:p-6 flex flex-col items-center relative overflow-hidden transition-all shadow-2xl border border-white/10">
@@ -164,7 +165,8 @@ const App: React.FC = () => {
                 
                 {/* Header Section: Logo + Title + Subtitle */}
                 <div className="flex flex-col items-center shrink-0 w-full">
-                    <div className="transform scale-90 sm:scale-100 md:scale-90">
+                    {/* Updated scale for desktop to match wider card */}
+                    <div className="transform scale-90 sm:scale-100 md:scale-100">
                         <Logo onClick={() => openModal(ModalType.ABOUT)} />
                     </div>
                     
