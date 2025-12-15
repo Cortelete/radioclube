@@ -79,7 +79,7 @@ export const Logo: React.FC<LogoProps> = ({ onClick }) => {
   }, []);
 
   return (
-    <div className="relative w-24 h-24 xs:w-28 xs:h-28 sm:w-40 sm:h-40 mx-auto perspective-1000 z-10 shrink-0">
+    <div className="relative w-20 h-20 xs:w-24 xs:h-24 sm:w-32 sm:h-32 mx-auto perspective-1000 z-10 shrink-0 transition-all duration-500">
         <div 
             className="w-full h-full relative cursor-pointer preserve-3d"
             style={{ transform: `rotateY(${rotation}deg)` }}
@@ -90,7 +90,7 @@ export const Logo: React.FC<LogoProps> = ({ onClick }) => {
                 <img 
                     src="/logo.png" 
                     alt="Logo Rádio Clube" 
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain drop-shadow-2xl"
                     onError={(e) => {
                         (e.target as HTMLImageElement).src = 'https://picsum.photos/200/200'; 
                     }}
@@ -105,7 +105,7 @@ export const Logo: React.FC<LogoProps> = ({ onClick }) => {
                <img 
                     src="/globo.png" 
                     alt="Globo Rádio Clube" 
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain drop-shadow-2xl"
                     onError={(e) => {
                         (e.target as HTMLImageElement).src = 'https://picsum.photos/200/200'; 
                     }}

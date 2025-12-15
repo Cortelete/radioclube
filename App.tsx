@@ -12,12 +12,12 @@ import { BrowserGuide } from './components/BrowserGuide';
 const SocialButton = ({ icon: Icon, onClick, label }: { icon: React.ElementType, onClick: () => void, label: string }) => (
   <button 
     onClick={onClick}
-    className="group flex flex-col items-center gap-1 sm:gap-2 transition-transform active:scale-95"
+    className="group flex flex-col items-center gap-1 transition-transform active:scale-95"
   >
-    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white transition-all duration-300 group-hover:bg-brand-cyan group-hover:border-brand-cyan group-hover:shadow-[0_0_20px_rgba(45,170,225,0.4)]">
-      <Icon size={18} className="sm:w-5 sm:h-5" strokeWidth={1.5} />
+    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-10 md:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white transition-all duration-300 group-hover:bg-brand-cyan group-hover:border-brand-cyan group-hover:shadow-[0_0_20px_rgba(45,170,225,0.4)]">
+      <Icon size={18} className="sm:w-5 sm:h-5 md:w-4 md:h-4" strokeWidth={1.5} />
     </div>
-    <span className="text-[10px] sm:text-xs font-display font-medium text-white/60 group-hover:text-white transition-colors uppercase tracking-widest">{label}</span>
+    <span className="text-[10px] sm:text-xs md:text-[10px] font-display font-medium text-white/60 group-hover:text-white transition-colors uppercase tracking-widest">{label}</span>
   </button>
 );
 
@@ -105,26 +105,32 @@ const App: React.FC = () => {
 
       {/* --- LUXURY ANIMATED BACKGROUND START --- */}
       
-      {/* 1. Base Dark Blue Layer */}
-      <div className="fixed inset-0 -z-40 bg-[#051826]"></div>
+      {/* 1. Base Deep Layer */}
+      <div className="fixed inset-0 -z-50 bg-[#020408]"></div>
 
-      {/* 2. Animated Blobs (Moving Gradients) */}
-      <div className="fixed inset-0 -z-30 overflow-hidden opacity-60">
-        {/* Top Left - Lighter Blue */}
-        <div className="absolute -top-[10%] -left-[10%] w-[80vw] h-[80vw] max-w-[500px] max-h-[500px] bg-[#1e4e70] rounded-full mix-blend-screen filter blur-[80px] animate-blob"></div>
-        
-        {/* Top Right - Cyan Accent */}
-        <div className="absolute top-[10%] -right-[10%] w-[70vw] h-[70vw] max-w-[450px] max-h-[450px] bg-[#2DAAE1] rounded-full mix-blend-screen filter blur-[100px] animate-blob" style={{ animationDelay: '2s' }}></div>
-        
-        {/* Bottom Left - Dark Navy */}
-        <div className="absolute -bottom-[20%] -left-[10%] w-[90vw] h-[90vw] max-w-[600px] max-h-[600px] bg-[#0B2F48] rounded-full mix-blend-screen filter blur-[80px] animate-blob" style={{ animationDelay: '4s' }}></div>
+      {/* 2. Complex Gradient Mesh (Aurora Effect) */}
+      <div className="fixed inset-0 -z-40 overflow-hidden">
+         {/* Top Left - Deep Royal Blue */}
+         <div className="absolute -top-[10%] -left-[10%] w-[70vw] h-[70vw] bg-blue-900/30 rounded-full blur-[120px] animate-float" style={{animationDuration: '15s'}}></div>
+         
+         {/* Bottom Right - Cyan Glow */}
+         <div className="absolute top-[40%] -right-[10%] w-[60vw] h-[60vw] bg-[#004e92]/20 rounded-full blur-[100px] animate-pulse-slow"></div>
+         
+         {/* Bottom Left - Dark Navy Accent */}
+         <div className="absolute -bottom-[20%] -left-[10%] w-[80vw] h-[80vw] bg-[#0f2027]/80 rounded-full blur-[90px] animate-float" style={{animationDuration: '20s', animationDelay: '2s'}}></div>
+         
+         {/* Center Top - Light Cyan Highlight */}
+         <div className="absolute -top-[20%] left-[20%] w-[50vw] h-[50vw] bg-brand-cyan/10 rounded-full blur-[130px] mix-blend-screen animate-blob"></div>
       </div>
 
-      {/* 3. Luxury Texture Overlay (Subtle Stardust/Noise) */}
-      <div className="fixed inset-0 -z-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-15"></div>
+      {/* 3. Luxury Grain/Noise Texture (Subtle) */}
+      <div className="fixed inset-0 -z-30 opacity-[0.03] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
 
-      {/* 4. Elegant Reflection/Sheen (Diagonal Sweep) */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 sm:opacity-20 animate-pulse-slow pointer-events-none"></div>
+      {/* 4. Vignette for Focus */}
+      <div className="fixed inset-0 -z-20 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(2,4,8,0.4)_100%)] pointer-events-none"></div>
+
+      {/* 5. Diagonal Sheen Animation */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent opacity-0 sm:opacity-100 animate-pulse-slow pointer-events-none"></div>
       
       {/* --- BACKGROUND END --- */}
 
@@ -132,13 +138,13 @@ const App: React.FC = () => {
       {/* 
          Main Card Wrapper 
          - Mobile: Full height (h-full), full width (w-full), padding handled by parent or internal.
-         - Desktop (md+): Constrained max-height (95vh) to ensure it fits without scrolling, 
+         - Desktop (md+): Constrained max-height (80vh - was 95vh) to ensure it fits without scrolling on smaller laptops, 
            and constrained width/aspect-ratio to simulate mobile device.
       */}
-      <div className="w-full max-w-[420px] h-full md:h-auto md:max-h-[95vh] md:aspect-[9/18] z-10 relative flex flex-col p-2 sm:p-4 md:p-0 transition-all duration-300">
+      <div className="w-full max-w-[420px] md:max-w-[360px] h-full md:h-auto md:max-h-[82vh] md:aspect-[9/19] z-10 relative flex flex-col p-2 sm:p-4 md:p-0 transition-all duration-300">
         
         {/* The Glass Card */}
-        <div className="w-full h-full glass-panel rounded-3xl sm:rounded-[2.5rem] p-5 sm:p-6 md:p-8 flex flex-col items-center relative overflow-hidden transition-all shadow-2xl">
+        <div className="w-full h-full glass-panel rounded-3xl sm:rounded-[2.5rem] p-4 sm:p-6 md:p-6 flex flex-col items-center relative overflow-hidden transition-all shadow-2xl">
             
             {/* Subtle top reflection inside card */}
             <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[50%] bg-gradient-to-b from-white/10 to-transparent rotate-12 blur-xl pointer-events-none"></div>
@@ -148,26 +154,28 @@ const App: React.FC = () => {
                 
                 {/* Header Section: Logo + Title + Subtitle */}
                 <div className="flex flex-col items-center shrink-0 w-full">
-                    <div className="transform scale-90 sm:scale-100">
+                    <div className="transform scale-90 sm:scale-100 md:scale-90">
                         <Logo onClick={() => openModal(ModalType.ABOUT)} />
                     </div>
                     
-                    <div className="relative w-full flex justify-center mt-3 mb-3 sm:mb-4">
+                    <div className="relative w-full flex justify-center mt-2 mb-2 sm:mb-4 md:mb-2">
                          <img 
                             src="/clubefm.png" 
                             alt="Rádio Clube FM" 
-                            className="h-10 sm:h-14 md:h-16 w-auto object-contain drop-shadow-[0_0_15px_rgba(45,170,225,0.3)]" 
+                            className="h-10 sm:h-14 md:h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(45,170,225,0.3)]" 
                          />
                     </div>
 
-                    <div className="w-full mb-3 sm:mb-4">
+                    <div className="w-full mb-2 sm:mb-4 md:mb-2">
                       <Subtitle />
                     </div>
                 </div>
 
                 {/* Middle Section: Player + Buttons */}
-                <div className="w-full flex flex-col gap-2 sm:gap-3 my-auto justify-center">
-                    <AudioPlayer />
+                <div className="w-full flex flex-col gap-2 sm:gap-3 md:gap-2 my-auto justify-center">
+                    <div className="md:scale-95 origin-center w-full">
+                        <AudioPlayer />
+                    </div>
                     
                     <div className="flex flex-col gap-2 w-full">
                         <Button 
@@ -203,11 +211,11 @@ const App: React.FC = () => {
                 </div>
 
                 {/* Bottom Section: Socials + Footer */}
-                <div className="flex flex-col items-center gap-3 sm:gap-5 shrink-0 mt-2">
+                <div className="flex flex-col items-center gap-2 sm:gap-5 md:gap-3 shrink-0 mt-2">
                      {/* Divider */}
                      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
-                    <div className="w-full flex items-center justify-center gap-6 sm:gap-8">
+                    <div className="w-full flex items-center justify-center gap-6 sm:gap-8 md:gap-6">
                         <SocialButton 
                             label="Instagram"
                             icon={Instagram}
@@ -228,7 +236,7 @@ const App: React.FC = () => {
                     <footer className="">
                         <button 
                             onClick={() => openModal(ModalType.CREDITS)}
-                            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-white/30 hover:text-brand-cyan transition-colors"
+                            className="text-[9px] sm:text-[10px] md:text-[9px] uppercase tracking-[0.2em] text-white/30 hover:text-brand-cyan transition-colors"
                         >
                             Desenvolvido por InteligenciArte.IA
                         </button>
