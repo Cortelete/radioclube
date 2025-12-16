@@ -38,7 +38,6 @@ const App: React.FC = () => {
     name: '',
     music: '',
     artist: '',
-    version: '',
     message: ''
   });
 
@@ -65,13 +64,12 @@ const App: React.FC = () => {
                  `👤 *Nome:* ${musicForm.name}%0A` +
                  `🎼 *Música:* ${musicForm.music}%0A` +
                  `🎤 *Cantor/Banda:* ${musicForm.artist}%0A` +
-                 `💿 *Versão:* ${musicForm.version || 'Original'}%0A` +
                  `✉️ *Recado:* ${musicForm.message || 'Sem recado'}`;
     
     window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     closeModal();
     // Optional: clear form
-    setMusicForm({ name: '', music: '', artist: '', version: '', message: '' });
+    setMusicForm({ name: '', music: '', artist: '', message: '' });
   };
 
   const handleDevContact = (clientName: string) => {
@@ -229,11 +227,12 @@ const App: React.FC = () => {
                 </div>
 
                 {/* Bottom Section: Socials + Footer */}
-                <div className="flex flex-col items-center gap-2 sm:gap-5 md:gap-3 shrink-0 mt-2">
+                <div className="w-full flex flex-col items-center gap-2 sm:gap-5 md:gap-3 shrink-0 mt-2">
                      {/* Divider */}
                      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
-                    <div className="w-full flex items-center justify-center gap-6 sm:gap-8 md:gap-6">
+                    {/* Socials Grid: Equidistant and Centered */}
+                    <div className="w-full max-w-[320px] mx-auto grid grid-cols-3 place-items-center">
                         <SocialButton 
                             label="Instagram"
                             icon={Instagram}
@@ -398,17 +397,6 @@ const App: React.FC = () => {
                         onChange={e => setMusicForm({...musicForm, artist: e.target.value})}
                     />
                 </div>
-            </div>
-
-            <div className="space-y-1">
-                <label className="text-xs uppercase tracking-wider text-brand-cyan font-bold pl-1">Versão <span className="text-white/30 font-light normal-case tracking-normal">(Opcional)</span></label>
-                <input 
-                    type="text" 
-                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-base text-white focus:outline-none focus:border-brand-cyan/50 focus:bg-white/10 transition-all placeholder:text-white/20"
-                    placeholder="Ex: Ao vivo, Acústico..."
-                    value={musicForm.version}
-                    onChange={e => setMusicForm({...musicForm, version: e.target.value})}
-                />
             </div>
 
             <div className="space-y-1">
