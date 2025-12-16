@@ -38,6 +38,5 @@ export interface MusicRequestFormData {
   name: string;
   music: string;
   artist: string;
-  version: string;
   message: string;
 }
