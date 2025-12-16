@@ -522,7 +522,7 @@ const App: React.FC = () => {
          onClose={closeModal}
          title="Feedback"
       >
-          <form action="https://formsubmit.co/your-email@example.com" method="POST" className="space-y-4">
+          <form action="https://formsubmit.co/clubefm941@gmail.com" method="POST" className="space-y-4">
              <input type="hidden" name="_subject" value="Feedback Negativo - Rádio Clube" />
              <p className="text-base text-white/60 font-light">Como podemos melhorar para chegar às 5 estrelas?</p>
              <textarea 
