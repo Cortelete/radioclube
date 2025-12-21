@@ -1,9 +1,13 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import { Play, Pause, Radio, Volume2, VolumeX, Volume1 } from 'lucide-react';
 
 const STREAM_URL = "https://stm1.voxplayer.com.br:7086/stream";
 
-export const AudioPlayer: React.FC = () => {
+export interface AudioPlayerHandle {
+  playWithSound: () => void;
+}
+
+export const AudioPlayer = forwardRef<AudioPlayerHandle>((props, ref) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLive, setIsLive] = useState(false);
@@ -12,10 +16,69 @@ export const AudioPlayer: React.FC = () => {
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
 
-  // Initialize volume
+  // Expose methods to parent
+  useImperativeHandle(ref, () => ({
+    playWithSound: () => {
+      if (audioRef.current) {
+        // Unmute logic
+        setIsMuted(false);
+        setVolume(1);
+        audioRef.current.muted = false;
+        audioRef.current.volume = 1;
+        
+        // Play logic
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsPlaying(true);
+              setIsLive(true);
+            })
+            .catch(error => {
+              // This catch prevents "Uncaught (in promise) DOMException"
+              console.log("Manual play failed:", error);
+            });
+        }
+      }
+    }
+  }));
+
+  // Initialize volume and Attempt Autoplay
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
+      
+      // Attempt Autoplay
+      const attemptPlay = async () => {
+        if (!audioRef.current) return;
+
+        try {
+          await audioRef.current.play();
+          setIsPlaying(true);
+          setIsLive(true);
+        } catch (err) {
+          // Autoplay blocked (expected in many browsers without interaction)
+          // Try muted autoplay as a fallback
+          if (audioRef.current) {
+            audioRef.current.muted = true;
+            setIsMuted(true);
+            setVolume(0); // Sync UI to muted state
+            
+            try {
+              await audioRef.current.play();
+              setIsPlaying(true);
+              setIsLive(true);
+            } catch (e) {
+              // Muted autoplay also failed (very strict browser settings)
+              // We silence the error here because the PlayerGuide will handle the interaction
+              console.log("Autoplay waiting for user interaction.");
+              setIsPlaying(false);
+            }
+          }
+        }
+      };
+      
+      attemptPlay();
     }
   }, []);
 
@@ -25,8 +88,14 @@ export const AudioPlayer: React.FC = () => {
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play().catch(e => console.error("Playback failed:", e));
-      setIsLive(true);
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+             setIsLive(true);
+          })
+          .catch(e => console.error("Playback failed:", e));
+      }
     }
     setIsPlaying(!isPlaying);
   };
@@ -41,11 +110,24 @@ export const AudioPlayer: React.FC = () => {
     audioRef.current.load();
     
     // Restore volume
-    audioRef.current.volume = isMuted ? 0 : volume;
+    audioRef.current.muted = false;
+    audioRef.current.volume = isMuted && volume === 0 ? 1 : (isMuted ? 0 : volume || 1);
     
-    audioRef.current.play().catch(e => console.error("Playback failed:", e));
-    setIsPlaying(true);
-    setIsLive(true);
+    // If it was muted purely by logic, unmute it in state too if volume > 0
+    if (isMuted && audioRef.current.volume > 0) {
+        setIsMuted(false);
+        setVolume(audioRef.current.volume);
+    }
+
+    const playPromise = audioRef.current.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          setIsPlaying(true);
+          setIsLive(true);
+        })
+        .catch(e => console.error("GoLive playback failed:", e));
+    }
   };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +137,7 @@ export const AudioPlayer: React.FC = () => {
     
     if (audioRef.current) {
       audioRef.current.volume = newVol;
+      if (newVol > 0) audioRef.current.muted = false;
     }
   };
 
@@ -62,10 +145,14 @@ export const AudioPlayer: React.FC = () => {
     if (!audioRef.current) return;
     
     if (isMuted) {
-      audioRef.current.volume = volume || 1;
+      const volToRestore = volume === 0 ? 1 : volume;
+      audioRef.current.volume = volToRestore;
+      audioRef.current.muted = false;
+      setVolume(volToRestore);
       setIsMuted(false);
     } else {
       audioRef.current.volume = 0;
+      audioRef.current.muted = true;
       setIsMuted(true);
     }
   };
@@ -76,7 +163,7 @@ export const AudioPlayer: React.FC = () => {
   return (
     <div className="w-full mx-auto bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-md border border-white/10 rounded-xl sm:rounded-2xl p-2.5 sm:p-4 relative group overflow-hidden shrink-0 transition-all duration-300">
       
-      <audio ref={audioRef} src={STREAM_URL} preload="none" />
+      <audio ref={audioRef} src={STREAM_URL} preload="none" crossOrigin="anonymous" />
 
       {/* Visualizer effect background (fake) */}
       <div className={`absolute bottom-0 left-0 right-0 h-full flex items-end justify-between px-2 opacity-20 pointer-events-none transition-opacity duration-500 ${isPlaying ? 'opacity-20' : 'opacity-0'}`}>
@@ -150,4 +237,6 @@ export const AudioPlayer: React.FC = () => {
       </div>
     </div>
   );
-};
+});
+
+AudioPlayer.displayName = "AudioPlayer";

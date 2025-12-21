@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Info, MessageCircle, MapPin, Star, Instagram, Facebook, Music, Globe } from 'lucide-react';
 import { ModalType, ContactFormData, MusicRequestFormData } from './types';
 import { Logo } from './components/Logo';
 import { Subtitle } from './components/Subtitle';
-import { AudioPlayer } from './components/AudioPlayer';
+import { AudioPlayer, AudioPlayerHandle } from './components/AudioPlayer';
 import { Button } from './components/Button';
 import { Modal } from './components/Modal';
 import { BrowserGuide } from './components/BrowserGuide';
+import { PlayerGuide } from './components/PlayerGuide';
 
 // Minimalist Social Button
 const SocialButton = ({ icon: Icon, onClick, label }: { icon: React.ElementType, onClick: () => void, label: string }) => (
@@ -24,7 +25,19 @@ const SocialButton = ({ icon: Icon, onClick, label }: { icon: React.ElementType,
 const App: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<ModalType>(ModalType.NONE);
   const [rating, setRating] = useState(0);
+  const [showPlayerGuide, setShowPlayerGuide] = useState(false);
   
+  const audioPlayerRef = useRef<AudioPlayerHandle>(null);
+
+  // Effect to show PlayerGuide after 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPlayerGuide(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   // State for Contact Form
   const [contactForm, setContactForm] = useState<ContactFormData>({
     name: '',
@@ -45,6 +58,14 @@ const App: React.FC = () => {
   const closeModal = () => {
     setModalOpen(ModalType.NONE);
     if(modalOpen === ModalType.RATING && rating !== 5) setRating(0);
+  };
+
+  const handleCloseGuide = () => {
+    setShowPlayerGuide(false);
+    // When user clicks "Entendi" on the guide, ensure audio plays with sound
+    if (audioPlayerRef.current) {
+      audioPlayerRef.current.playWithSound();
+    }
   };
 
   const handleContactSubmit = (e: React.FormEvent) => {
@@ -100,6 +121,9 @@ const App: React.FC = () => {
       
       {/* Tip for Instagram Browser */}
       <BrowserGuide />
+
+      {/* Central Instruction Balloon / Player Guide */}
+      {showPlayerGuide && <PlayerGuide onClose={handleCloseGuide} />}
 
       {/* --- DYNAMIC BLUE TO WHITE ANIMATED BACKGROUND --- */}
       
@@ -184,7 +208,8 @@ const App: React.FC = () => {
                 {/* Middle Section: Player + Buttons */}
                 <div className="w-full flex flex-col gap-2 sm:gap-3 md:gap-2 my-auto justify-center">
                     <div className="md:scale-95 origin-center w-full">
-                        <AudioPlayer />
+                        {/* Audio Player with Ref for remote control */}
+                        <AudioPlayer ref={audioPlayerRef} />
                     </div>
                     
                     <div className="flex flex-col gap-2 w-full">
